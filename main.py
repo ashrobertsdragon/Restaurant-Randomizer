@@ -3,6 +3,7 @@ import os
 import time
 import json 
 
+# open the JSON file
 def loadfile():
 	if os.path.exists("favorites.json"):
 		f = open("favorites.json", "r")
@@ -11,8 +12,10 @@ def loadfile():
 	else:
 		favorites_dict = {}
 
+  
 	return favorites_dict
 
+# Show create options
 def create_favorites(favorites_dict):
 	
 	
@@ -45,21 +48,26 @@ def create_favorites(favorites_dict):
 		for i, location in location:
 			print(f"{i + 1}:. {location}")
 		add_to_location = input("Which location do you want to add a restaurant to?")
+    
 		for restaurant in location[add_to_location - 1]:
 			print(f"{restaurant}, ")
 
 		print()
+    
 		while True:
 			restaurant = input("What restaurants do you want to add > ")
 			favorites_dict[add_to_location].append(restaurant)
 			another_restaurant = input("Add another restaurant? (y/n) ")
 			if another_restaurant.lower() == "n":
 				break
+        
 	else:
 		print("Invalid choice")
 
+  
 	return
 
+# Randomizer
 def restaurant_randomizer(favorites_dict):
 	locations = list(favorites_dict.keys())
 	locations.remove("favorites")
@@ -68,9 +76,11 @@ def restaurant_randomizer(favorites_dict):
 	restaurant = random.choice(restaurants)
 	print(f"{restaurant}")
 	end_program = input ("End program? (y/n) ")
+  
 	if end_program.lower() == "y":
 		exit()
 
+# View restaurants in a given location that have already been added
 def view_favorites(favorites_dict):
 	
 	for i, location in favorites_dict:
@@ -81,13 +91,12 @@ def view_favorites(favorites_dict):
 	for restaurant in view_location:
 		print(f"{restaurant}")
 
-	
-
 	go_back = input("Go back? (y/n) ")
 	if go_back.lower() == "y":
 		time.sleep(1)
 		os.system("clear")
 
+    
 		return
 	
 	else:
@@ -96,9 +105,11 @@ def view_favorites(favorites_dict):
 			time.sleep(1)
 			os.system("clear")
 			view_favorites(favorites_dict)
+      
 		else:
 			exit()
 
+# Remove restaurant from list in a given location or entire location
 def remove_favorites(favorites_dict):
 	
 	print("Menu:")
@@ -117,7 +128,8 @@ def remove_favorites(favorites_dict):
 		if another_location.lower() == "n":
 			time.sleep(1)
 			os.system("clear")
-			
+
+      
 			return
 		
 		else:
@@ -140,7 +152,8 @@ def remove_favorites(favorites_dict):
 		if another_restaurant.lower() == "n":
 			time.sleep(1)
 			os.system("clear")
-			
+
+      
 			return
 		
 		else:
@@ -148,6 +161,7 @@ def remove_favorites(favorites_dict):
 			os.system("clear")
 			remove_favorites(favorites_dict)
 
+# Main menu
 def main():
 	
 	favorites_dict = loadfile()
@@ -161,6 +175,7 @@ def main():
 	print("5. Exit")
 
 	menu_choice = int(input(" > "))
+  
 	if menu_choice == 1:
 		restaurant_randomizer(favorites_dict)
 	elif menu_choice == 2:
